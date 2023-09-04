@@ -28,7 +28,7 @@ const mysql = require('mysql2/promise');
             return rows;
         }catch(error){
             console.log("erro ao executar query: ",error);
-            throw error;
+            return error;
         }finally{
             if(conexao){
                 conexao.end();

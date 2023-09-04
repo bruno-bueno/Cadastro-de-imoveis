@@ -13,7 +13,12 @@ async function autenticar(req,res){
         if(resp.length > 0){
             //Usuario logado
             console.log("usuario logado");
-            //res.redirect('/tarefas');
+            req.session.user={
+                id_usuario: resp[0].id,
+                nome: resp[0].nome,
+                email: resp[0].email
+            };
+            res.redirect('/home');
         }else{
             //Usuario invalido
             console.log("vale não")
@@ -29,10 +34,14 @@ function cadastro(req,res){
 async function cadastrar(req,res){
     const { nome, email, senha } = req.body;
     console.log(req.body)
-    if(req.body.email && req.body.senha){
+    if(nome && email && senha){
         const usuario = new usuarioModel('0', nome, email, senha); 
-        usuario.cadastrar();
-        res.redirect('/login');
+        const resp=await usuario.cadastrar();
+        console.log("controler")
+        console.log(resp)
+        if(!resp.errno){
+            res.redirect('/login');
+        }
         
     }
 }

@@ -1,3 +1,4 @@
+const db = require('./database');
 class ImagemModel{
     constructor(id,id_imovel,imagem){
         this.id=id;
