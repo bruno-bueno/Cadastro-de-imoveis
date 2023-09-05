@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <form action="/addImovel" method="post">
+    <form action="/addImovel" method="POST" enctype="multipart/form-data">
         <div>
             <input type="text" name="descricao" placeholder="Descricao">
         </div>
@@ -38,7 +38,7 @@
             <input type="text" name="numero" placeholder="Numero">
         </div>
         <div>
-            <input type="file" name="arquivo">
+            <input type="file" name="arquivo" multiple>
         </div>
         <div>
             <button type="submit" class="btn btn-primary">Adicionar imóvel</button>
@@ -49,16 +49,13 @@
     document.getElementById('cep').addEventListener('blur', function () {
         const cep = this.value;
     
-        // Faça uma requisição AJAX para buscar o endereço com base no CEP
         fetch(`https://viacep.com.br/ws/${cep}/json/`)
           .then((response) => response.json())
           .then((data) => {
-            // Preencha os campos de endereço com os dados retornados
             document.querySelector('input[name="estado"]').value = data.uf;
             document.querySelector('input[name="cidade"]').value = data.localidade;
             document.querySelector('input[name="bairro"]').value = data.bairro;
             document.querySelector('input[name="rua"]').value = data.logradouro;
-            // Você pode adicionar mais campos conforme necessário
           })
           .catch((error) => {
             console.error('Erro ao buscar o endereço:', error);

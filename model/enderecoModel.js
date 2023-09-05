@@ -9,6 +9,10 @@ class EnderecoModel{
         this.cidade=cidade;
         this.estado=estado;
     }
+    static listarEndereco(id){
+        let tarefas = db.query(`SELECT * FROM endereco WHERE id=${id}`);
+        return tarefas;
+    }
 
     salvarEndereco(){
         let resp = db.query(`INSERT INTO endereco (cep, rua, bairro, numero, cidade, estado) VALUES ('${this.cep}','${this.rua}','${this.bairro}',${this.numero},'${this.cidade}','${this.estado}')`);

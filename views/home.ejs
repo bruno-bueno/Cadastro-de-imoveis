@@ -9,6 +9,21 @@
 </head>
 <body>
     <h1>home</h1>
+    <ul> 
+    
+        <% imovelCompleto.forEach(imovelCompleto => { %> 
+            <li>
+                
+                <div class="card" style="width: 18rem;">
+                    <img src="<%- imovelCompleto.imagens.imagem %>" class="card-img-top">
+                    <div class="card-body">
+                      <p class="card-text"><%- imovelCompleto.imovel.descricao %></p>
+                    </div>
+                  </div>
+            </li> 
+        <% }); %> 
+        
+    </ul> 
     <form action="/addImovel" method="GET">
         
         <button type="submit" class="btn btn-primary">Adicionar imóvel</button>
