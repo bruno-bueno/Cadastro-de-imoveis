@@ -14,6 +14,10 @@ class ImovelModel{
         let tarefas = db.query("SELECT * FROM imovel");
         return tarefas;
     }
+    static listarImoveisUsuario(id){
+        let tarefas = db.query(`SELECT * FROM imovel where id_usuario=${id}`);
+        return tarefas;
+    }
     salvar(){
         let resp = db.query(`INSERT INTO imovel (id_usuario, descricao, telefone, valor,endereco_id) VALUES (${this.id_cliente},'${this.descricao}',${this.telefone},${this.valor},${this.endereco_id})`);
         console.log(resp);

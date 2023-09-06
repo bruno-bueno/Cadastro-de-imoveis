@@ -1,44 +1,18 @@
 const imovelModel = require('../model/imovelModel');
 const enderecoModel = require('../model/enderecoModel');
 const imagemModel = require('../model/imagemModel');
-let imoveis = [];
-let endereco = [];
-let imagens = [];
+
 
 async function getImoveis(req, res) { 
-    /*imoveis = await imovelModel.listarImovel();
-    imoveis.forEach(async imovel => {
-        endereco = await enderecoModel.listarEndereco(imovel.endereco_id);
-        imagens = await imagemModel.listarImagens(imovel.id);
-        const imovelCompleto=[{
-            imovel: imovel,
-            endereco: endereco,
-            imagens: imagens
-        }]
-        console.log(imovelCompleto);
-        res.render('home', { imovelCompleto }); 
-    });*/
-    
-    try {
         const imoveis = await imovelModel.listarImovel();
-        const imovelCompletoList = [];
+        const imovelCompleto = await buscarComplementosImovel(imoveis) 
+        res.render('home', { imovelCompleto });
+}
 
-        for (const imovel of imoveis) {
-            const endereco = await enderecoModel.listarEndereco(imovel.endereco_id);
-            const imagens = await imagemModel.listarImagens(imovel.id);
-            const imovelCompleto = {
-                imovel: imovel,
-                endereco: endereco,
-                imagens: imagens
-            };
-            imovelCompletoList.push(imovelCompleto);
-        }
-
-        res.render('home', { imovelCompleto: imovelCompletoList });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Erro ao buscar imóveis');
-    }
+async function getImoveisUsuario(req, res) { 
+    const imoveis = await imovelModel.listarImoveisUsuario(req.session.user.id_usuario);
+    const imovelCompleto = await buscarComplementosImovel(imoveis) 
+    res.render('imoveis', { imovelCompleto });
 }
 
 async function addImovel(req,res){
@@ -49,11 +23,31 @@ async function addImovel(req,res){
     console.log(resp.insertId);
     const imovel = new imovelModel(0, req.session.user.id_usuario, descricao, telefone, valor, resp.insertId);
     resp = await imovel.salvar();
-    console.log(req.files);
-    console.log(req.files[0].path);
-    const imagem = new imagemModel(0, resp.insertId, req.files[0].path);
-    imagem.salvarImagem();
+    const imagens=req.files;
+    for (const imagem of imagens) {
+        const imagemSalva = await new imagemModel(0, resp.insertId, imagem.filename);
+        await imagemSalva.salvarImagem();
+    }
+    
     res.redirect('/home');
 }
 
-module.exports = { addImovel, getImoveis };
+async function buscarComplementosImovel(imoveis,){
+    const imovelCompletoList = [];
+
+        for (const imovel of imoveis) {
+            const endereco = await enderecoModel.listarEndereco(imovel.endereco_id);
+            const imagens = await imagemModel.listarImagens(imovel.id);
+            const imovelCompleto = {
+                imovel: imovel,
+                endereco: endereco[0],
+                imagens: imagens
+            };
+            console.log(imagens);
+            imovelCompletoList.push(imovelCompleto);
+        }
+
+    return imovelCompletoList;
+}
+
+module.exports = { addImovel, getImoveis, getImoveisUsuario };

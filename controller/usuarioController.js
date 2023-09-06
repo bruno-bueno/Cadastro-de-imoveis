@@ -45,5 +45,9 @@ async function cadastrar(req,res){
         
     }
 }
+function logout(req,res){
+    delete req.session.user;
+    res.redirect('/login')
+}
 
-module.exports={login, autenticar, cadastro, cadastrar}
+module.exports={login, autenticar, cadastro, cadastrar, logout}
