@@ -92,6 +92,7 @@ app.post('/addImovel',upload.array("arquivo") ,(req,res)=>{
 });
 
 app.get('/logout',(req,res)=>{
+    console.log('caiu')
     usuarioController.logout(req,res);
 })
 

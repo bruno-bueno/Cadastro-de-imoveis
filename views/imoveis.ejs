@@ -1,7 +1,8 @@
 <ul class="my-5"> 
     <% imovelCompleto.forEach(imovelCompleto => { %> 
-        <a href="#" onclick="modalShow()">
+        <a href="#" class="modal-link" data-id="<%= imovelCompleto.imovel.id %>">
             <li class="mx-2 mt-3">
+            
                 <div class="card" style="width: 18rem; height: 13rem;">
                     <div class="card-img-top">
                         <div class="carousel slide" data-bs-ride="carousel">
@@ -19,11 +20,11 @@
                         <p class="card-text"><%- imovelCompleto.imovel.descricao %></p>
                         </div>
                 </div>
-            </li> 
-        </a>    
-            
-
-            <div class="modal" tabindex="-1">
+            </li>
+        </a>
+        
+        
+            <div class="modal" id="<%- imovelCompleto.imovel.id %>" tabindex="-1">
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -57,3 +58,25 @@
     <% }); %> 
     
 </ul> 
+<script>
+    document.querySelectorAll('.modal-link').forEach(link => {
+        link.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+                modalShow(id);
+        });
+    });
+
+    function modalShow(id){
+        let modal = document.getElementById(id);
+        modal.style.display = 'block';
+    }
+
+    function modalClose(){
+        let modais = document.querySelectorAll('.modal');
+        modais.forEach(modal => {
+        if (window.getComputedStyle(modal).display == 'block') {
+            modal.style.display = 'none';
+        }
+    });
+    }
+</script>

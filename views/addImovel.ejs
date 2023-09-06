@@ -1,42 +1,43 @@
 <body>
+    <h2 class="mt-2">Adicionar Imovel</h2>
     <form action="/addImovel" method="POST" enctype="multipart/form-data">
-        <div>
-            <input type="text" name="descricao" placeholder="Descricao">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="descricao" placeholder="Descricao">
         </div>
-        <div>
-            <input type="text" name="telefone" placeholder="Telefone">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="telefone" placeholder="Telefone">
         </div>
-        <div>
-            <input type="text" name="valor" placeholder="Valor">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="valor" placeholder="Valor">
         </div>
-        <div>
-            <input type="text" name="cep" id="cep" placeholder="CEP">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="cep" id="cep" placeholder="CEP">
         </div>
-        <div>
-            <input type="text" name="estado" placeholder="Estado">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="estado" placeholder="Estado">
         </div>
-        <div>
-            <input type="text" name="cidade" placeholder="Cidade">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="cidade" placeholder="Cidade">
         </div>
-        <div>
-            <input type="text" name="bairro" placeholder="Bairro">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="bairro" placeholder="Bairro">
         </div>
-        <div>
-            <input type="text" name="rua" placeholder="Rua">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="rua" placeholder="Rua">
         </div>
-        <div>
-            <input type="text" name="numero" placeholder="Numero">
+        <div class="mt-3">
+            <input type="text" class="form-control" name="numero" placeholder="Numero">
         </div>
-        <div>
-            <input type="file" name="arquivo" multiple>
+        <div class="mt-3">
+            <input type="file" class="form-control" name="arquivo" multiple>
         </div>
-        <div>
-            <button type="submit" class="btn btn-primary">Adicionar imóvel</button>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-dark">Adicionar imóvel</button>
         </div>
       </form>
 </body>
 <script>
-    document.getElementById('cep').addEventListener('blur', function () {
+    document.querySelector('#cep').addEventListener('blur', function () {
         const cep = this.value;
     
         fetch(`https://viacep.com.br/ws/${cep}/json/`)
