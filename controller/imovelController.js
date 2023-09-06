@@ -4,7 +4,7 @@ const imagemModel = require('../model/imagemModel');
 
 
 async function getImoveis(req, res) { 
-        const imoveis = await imovelModel.listarImovel();
+        const imoveis = await imovelModel.listarImoveis();
         const imovelCompleto = await buscarComplementosImovel(imoveis) 
         res.render('home', { imovelCompleto });
 }

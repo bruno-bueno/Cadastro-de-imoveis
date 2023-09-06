@@ -10,12 +10,16 @@ class ImovelModel{
         this.endereco_id=endereco_id;
     }
 
-    static listarImovel(){
+    static listarImoveis(){
         let tarefas = db.query("SELECT * FROM imovel");
         return tarefas;
     }
     static listarImoveisUsuario(id){
         let tarefas = db.query(`SELECT * FROM imovel where id_usuario=${id}`);
+        return tarefas;
+    }
+    static listarImovel(id){
+        let tarefas = db.query(`SELECT * FROM imovel where id=${id}`);
         return tarefas;
     }
     salvar(){

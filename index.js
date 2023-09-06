@@ -81,6 +81,7 @@ app.get('/imoveisUsuario',(req,res)=>{
     imovelController.getImoveisUsuario(req,res);
 });
 
+
 //rotas addImovel
 app.get('/addImovel',(req,res)=>{
     res.render('addImovel');
@@ -89,6 +90,7 @@ app.get('/addImovel',(req,res)=>{
 app.post('/addImovel',upload.array("arquivo") ,(req,res)=>{
     imovelController.addImovel(req,res);
 });
+
 app.get('/logout',(req,res)=>{
     usuarioController.logout(req,res);
 })

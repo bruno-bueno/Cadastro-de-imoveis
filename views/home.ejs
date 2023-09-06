@@ -1,26 +1,73 @@
 <img class="mt-4" src="uploads/banner.jpg" style="width: 94%;">
 <ul class="my-5"> 
     <% imovelCompleto.forEach(imovelCompleto => { %> 
-        <li class="mx-2 mt-3">
+        <a href="#" onclick="modalShow()">
+            <li class="mx-2 mt-3">
             
-            <div class="card" style="width: 18rem; height: 13rem;">
-                <div class="card-img-top">
-                    <div class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <% for (let i = 0; i < imovelCompleto.imagens.length; i++) { %>
-                                <div class="<%- i == 0 ? 'carousel-item active' : 'carousel-item' %> " style="height: 10rem;">
-                                    <img src="uploads/<%- imovelCompleto.imagens[i].imagem %>" class="d-block w-100" alt="Imagem <%= i %>">
-                                </div>
-                            <% } %>
+                <div class="card" style="width: 18rem; height: 13rem;">
+                    <div class="card-img-top">
+                        <div class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <% for (let i = 0; i < imovelCompleto.imagens.length; i++) { %>
+                                    <div class="<%- i == 0 ? 'carousel-item active' : 'carousel-item' %> " style="height: 10rem;">
+                                        <img src="uploads/<%- imovelCompleto.imagens[i].imagem %>" class="d-block w-100" alt="Imagem <%= i %>">
+                                    </div>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
+                    
+                        <div class="card-body">
+                        <p class="card-text"><%- imovelCompleto.imovel.descricao %></p>
+                        </div>
                 </div>
-                
-                    <div class="card-body">
-                    <p class="card-text"><%- imovelCompleto.imovel.descricao %></p>
+            </li>
+        </a>
+        
+        
+            <div class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title"><%- imovelCompleto.imovel.descricao %></h5>
+                    <button type="button" class="btn-close" onclick="modalClose()" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body">
+                        <div class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <% for (let i = 0; i < imovelCompleto.imagens.length; i++) { %>
+                                    <div class="<%- i == 0 ? 'carousel-item active' : 'carousel-item' %> " style="height: 10rem;">
+                                        <img src="uploads/<%- imovelCompleto.imagens[i].imagem %>" class="d-block w-100" alt="Imagem <%= i %>">
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    <h3>Descrição: <%- imovelCompleto.imovel.descricao %></h3>
+                    <h5>Telefone: <%- imovelCompleto.imovel.telefone %></h4>
+                    <h5>Cep: <%- imovelCompleto.endereco.cep %></h4>
+                    <h5>Estado: <%- imovelCompleto.endereco.estado %></h4>
+                    <h5>Cidade: <%- imovelCompleto.endereco.cidade %></h4>
+                    <h5>Bairro: <%- imovelCompleto.endereco.bairro %></h4>
+                    <h5>Rua: <%- imovelCompleto.endereco.rua %></h4>
+                    <h5>Numero: <%- imovelCompleto.endereco.numero %></h4>
+                    <h3>valor: R$<%- imovelCompleto.imovel.valor %></h3>
+                    </div>
+                </div>
+                </div>
             </div>
-        </li> 
+        
     <% }); %> 
     
 </ul> 
+<script>
+    function modalShow(){
+        console.log("chegou")
+        let modal =document.querySelector('.modal');
+        modal.style.display = 'block';
+    }
+
+    function modalClose(){
+        let modal =document.querySelector('.modal');
+        modal.style.display = 'none';
+    }
+</script>
