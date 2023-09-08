@@ -10,20 +10,20 @@ class ImovelModel{
         this.endereco_id=endereco_id;
     }
 
-    static listarImoveis(){
-        let tarefas = db.query("SELECT * FROM imovel");
+    static async listarImoveis(){
+        let tarefas = await db.query("SELECT * FROM imovel");
         return tarefas;
     }
-    static listarImoveisUsuario(id){
-        let tarefas = db.query(`SELECT * FROM imovel where id_usuario=${id}`);
+    static async listarImoveisUsuario(id){
+        let tarefas = await db.query(`SELECT * FROM imovel where id_usuario=${id}`);
         return tarefas;
     }
-    static listarImovel(id){
-        let tarefas = db.query(`SELECT * FROM imovel where id=${id}`);
+    static async listarImovel(id){
+        let tarefas = await db.query(`SELECT * FROM imovel where id=${id}`);
         return tarefas;
     }
-    salvar(){
-        let resp = db.query(`INSERT INTO imovel (id_usuario, descricao, telefone, valor,endereco_id) VALUES (${this.id_cliente},'${this.descricao}',${this.telefone},${this.valor},${this.endereco_id})`);
+    async salvar(){
+        let resp = await db.query(`INSERT INTO imovel (id_usuario, descricao, telefone, valor,endereco_id) VALUES (${this.id_cliente},'${this.descricao}',${this.telefone},${this.valor},${this.endereco_id})`);
         console.log(resp);
         return resp;
     }
