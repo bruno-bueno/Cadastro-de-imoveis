@@ -1,8 +1,8 @@
-<img class="mt-4" src="uploads/banner.jpg" style="width: 94%;">
-<ul class="my-5"> 
+<img class="mt-4 text-center" src="uploads/banner.jpg" style="width: 94%;">
+<ul class="my-5 "> 
     <% imovelCompleto.forEach(imovelCompleto => { %> 
         <a href="#" class="modal-link" data-id="<%= imovelCompleto.imovel.id %>">
-            <li class="mx-2 mt-3">
+            <li class="mx-2 mt-3 text-center">
             
                 <div class="card" style="width: 18rem; height: 13rem;">
                     <div class="card-img-top">
@@ -52,6 +52,15 @@
                     <h5>Numero: <%- imovelCompleto.endereco.numero %></h4>
                     <h3>valor: R$<%- imovelCompleto.imovel.valor %></h3>
                     </div>
+                    
+                    <% if(imovelCompleto.imovel.id_usuario === locals.layoutsVariables.user.id_usuario) { %>
+                       
+                    <div class="modal-footer">
+                        <form action="imovel/deletar/<%- imovelCompleto.imovel.id %>" method="get">
+                            <input type="submit"class="btn btn-danger" value="Excluir">
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
                 </div>
             </div>

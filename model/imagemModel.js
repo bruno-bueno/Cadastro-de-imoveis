@@ -16,6 +16,11 @@ class ImagemModel{
         console.log(resp);
         return resp;
     }
+    static async deletarImagens(idImovel){
+        let resp = await db.query(`DELETE FROM imagens WHERE id_imovel=${idImovel}`);
+        console.log(resp);
+        return resp;
+    }
 }
 
 module.exports=ImagemModel;

@@ -27,6 +27,11 @@ class ImovelModel{
         console.log(resp);
         return resp;
     }
+    static async deletarImovel(id){
+        let resp = await db.query(`DELETE FROM imovel WHERE id=${id}`);
+        console.log(resp);
+        return resp;
+    }
 }
 
 module.exports=ImovelModel;

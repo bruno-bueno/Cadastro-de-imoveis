@@ -1,4 +1,4 @@
-<ul class="my-5"> 
+<ul class="my-5 text-center"> 
     <% imovelCompleto.forEach(imovelCompleto => { %> 
         <a href="#" class="modal-link" data-id="<%= imovelCompleto.imovel.id %>">
             <li class="mx-2 mt-3">
@@ -51,6 +51,13 @@
                     <h5>Numero: <%- imovelCompleto.endereco.numero %></h4>
                     <h3>valor: R$<%- imovelCompleto.imovel.valor %></h3>
                     </div>
+                    <% if(imovelCompleto.imovel.id_usuario === locals.layoutsVariables.user.id_usuario) { %>
+                    <div class="modal-footer">
+                        <form action="imovel/deletar/<%- imovelCompleto.imovel.id %>" method="get">
+                            <input type="submit"class="btn btn-danger" value="Excluir">
+                        </form>
+                    </div>
+                    <%}%>
                 </div>
                 </div>
             </div>

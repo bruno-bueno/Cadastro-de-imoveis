@@ -46,7 +46,7 @@ app.use((req,res,next)=>{
         res.locals.layoutsVariables={
             url : process.env.URL,
             style : "css",
-            title : 'home',
+            title : 'Home',
             user : req.session.user,
         }
         next();
@@ -91,8 +91,13 @@ app.post('/addImovel',upload.array("arquivo") ,(req,res)=>{
     imovelController.addImovel(req,res);
 });
 
+//rota delete
+app.get('/imovel/deletar/:idImovel',(req,res)=>{
+    imovelController.excluirImovel(req,res);
+});
+
+//rota logout
 app.get('/logout',(req,res)=>{
-    console.log('caiu')
     usuarioController.logout(req,res);
 })
 

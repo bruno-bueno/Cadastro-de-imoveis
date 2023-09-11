@@ -32,7 +32,7 @@ async function addImovel(req,res){
     res.redirect('/home');
 }
 
-async function buscarComplementosImovel(imoveis,){
+async function buscarComplementosImovel(imoveis){
     const imovelCompletoList = [];
 
         for (const imovel of imoveis) {
@@ -49,5 +49,16 @@ async function buscarComplementosImovel(imoveis,){
 
     return imovelCompletoList;
 }
+async function excluirImovel(req,res){
+    const { idImovel } = req.params;
+    console.log(idImovel);
+    const imovel = await imovelModel.listarImovel(idImovel);
+    await imagemModel.deletarImagens(idImovel);
+    await imovelModel.deletarImovel(idImovel);
+    console.log(imovel[0]);
+    await enderecoModel.deletarEndereco(imovel[0].endereco_id);
 
-module.exports = { addImovel, getImoveis, getImoveisUsuario };
+    res.redirect('/home');
+}
+
+module.exports = { addImovel, getImoveis, getImoveisUsuario, excluirImovel };
