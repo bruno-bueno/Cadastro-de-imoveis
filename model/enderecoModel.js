@@ -10,8 +10,8 @@ class EnderecoModel{
         this.estado=estado;
     }
     static async listarEndereco(id){
-        let tarefas = await db.query(`SELECT * FROM endereco WHERE id=${id}`);
-        return tarefas;
+        let resp = await db.query(`SELECT * FROM endereco WHERE id=${id}`);
+        return resp;
     }
 
     async salvarEndereco(){
@@ -22,6 +22,11 @@ class EnderecoModel{
     
     static async deletarEndereco(id){
         let resp = await db.query(`DELETE FROM endereco WHERE id=${id}`);
+        console.log(resp);
+        return resp;
+    }
+     async editarEndereco(id){
+        let resp = await db.query(`UPDATE endereco SET cep='${this.cep}', estado='${this.estado}', cidade='${this.cidade}', bairro='${this.bairro}', rua='${this.rua}', numero='${this.numero}'  WHERE id=${id}`);
         console.log(resp);
         return resp;
     }

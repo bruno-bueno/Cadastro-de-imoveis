@@ -51,7 +51,6 @@ async function buscarComplementosImovel(imoveis){
 }
 async function excluirImovel(req,res){
     const { idImovel } = req.params;
-    console.log(idImovel);
     const imovel = await imovelModel.listarImovel(idImovel);
     await imagemModel.deletarImagens(idImovel);
     await imovelModel.deletarImovel(idImovel);
@@ -61,4 +60,29 @@ async function excluirImovel(req,res){
     res.redirect('/home');
 }
 
-module.exports = { addImovel, getImoveis, getImoveisUsuario, excluirImovel };
+async function mostrarEditarImovel(req,res){
+    const { idImovel } = req.params;
+    const imoveis = await imovelModel.listarImovel(idImovel);
+    const imovelCompleto = await buscarComplementosImovel(imoveis) 
+    res.render('editImovel', { imovelCompleto });
+}
+
+async function editarImovel(req,res){
+    const { idImovel } = req.params;
+    const { descricao, telefone, valor, cep, estado, cidade, bairro, rua, numero } = req.body;
+    const endereco=new enderecoModel(0,cep, rua, bairro, numero, cidade, estado);
+    let resp = await endereco.editarEndereco(idImovel);
+    console.log("resp");
+    console.log(resp.insertId);
+    const imovel = new imovelModel(0, req.session.user.id_usuario, descricao, telefone, valor, resp.insertId);
+    resp = await imovel.editarImovel(idImovel);
+    const imagens=req.files;
+    for (const imagem of imagens) {
+        const imagemSalva = await new imagemModel(0, resp.insertId, imagem.filename);
+        await imagemSalva.salvarImagem();
+    }
+    console.log("editar")
+    res.redirect('/home');
+}
+
+module.exports = { addImovel, getImoveis, getImoveisUsuario, excluirImovel, mostrarEditarImovel, editarImovel };

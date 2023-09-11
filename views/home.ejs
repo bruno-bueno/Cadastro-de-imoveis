@@ -56,6 +56,9 @@
                     <% if(imovelCompleto.imovel.id_usuario === locals.layoutsVariables.user.id_usuario) { %>
                        
                     <div class="modal-footer">
+                        <form action="imovel/editar/<%- imovelCompleto.imovel.id %>" method="get">
+                            <input type="submit"class="btn btn-dark" value="Editar">
+                        </form>
                         <form action="imovel/deletar/<%- imovelCompleto.imovel.id %>" method="get">
                             <input type="submit"class="btn btn-danger" value="Excluir">
                         </form>

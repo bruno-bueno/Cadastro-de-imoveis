@@ -87,8 +87,17 @@ app.get('/addImovel',(req,res)=>{
     res.render('addImovel');
 });
 
-app.post('/addImovel',upload.array("arquivo") ,(req,res)=>{
+app.post('/addImovel', upload.array("arquivo"), (req,res)=>{
     imovelController.addImovel(req,res);
+});
+
+//rota editar
+app.get('/imovel/editar/:idImovel',(req,res)=>{
+    imovelController.mostrarEditarImovel(req,res);
+});
+app.post('/imovel/editar/:idImovel', upload.array("arquivo"), (req,res)=>{
+    console.log("teste");
+    imovelController.editarImovel(req,res);
 });
 
 //rota delete

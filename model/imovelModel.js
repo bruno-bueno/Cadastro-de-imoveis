@@ -32,6 +32,11 @@ class ImovelModel{
         console.log(resp);
         return resp;
     }
+    async editarImovel(id){
+        let resp = await db.query(`UPDATE imovel SET descricao='${this.descricao}', telefone=${this.telefone}, valor=${this.valor} WHERE id=${id}`);
+        console.log(resp);
+        return resp;
+    }
 }
 
 module.exports=ImovelModel;
